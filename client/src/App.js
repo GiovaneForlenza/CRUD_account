@@ -1,23 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import Axios from "axios";
 
 function App() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  function handleSubmit(e) {
+    e.preventDefault();
+    Axios.post("http://localhost:3002/create-user", { username, password });
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      <div className="register-container">
+        <form
+          onSubmit={(e) => {
+            handleSubmit(e);
+          }}
         >
-          Learn React
-        </a>
-      </header>
+          <div className="line">
+            <label htmlFor="">Username</label>
+            <input
+              type="text"
+              onChange={(e) => {
+                setUsername(e.target.value);
+              }}
+            />
+          </div>
+          <div className="line">
+            <label htmlFor="">Password</label>
+            <input
+              type="password"
+              name=""
+              id=""
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
+          </div>
+          <button type="submit">Register</button>
+        </form>
+      </div>
     </div>
   );
 }
